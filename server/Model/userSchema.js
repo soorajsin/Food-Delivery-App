@@ -34,6 +34,13 @@ const userSchema=new mongoose.Schema({
                   required: true
         }
     }],
+    addFood: [{
+        fname: String,
+        fprice: String,
+        fimg: String,
+        description: String
+}],
+
 })
 
 
