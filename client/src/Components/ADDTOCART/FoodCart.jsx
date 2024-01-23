@@ -48,6 +48,29 @@ const FoodCart = () => {
             console.log(res);
         }
     };
+
+
+    const deleteFoodOder = async (buyFoodId, index) => {
+    const token = await localStorage.getItem("userDataToken");
+
+    const data = await fetch(`${api}/deleteFoodOder`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify({ buyFoodId }),
+    });
+
+    const res = await data.json();
+    // console.log(res);
+
+    if (res.status === 203) {
+      console.log(res);
+    } else {
+      alert("You are not authorized to perform this action!");
+    }
+  };
   return (
     <>
         <div className="staff">
@@ -81,34 +104,22 @@ const FoodCart = () => {
           <div className="orderContainer">
             <h1>Your Order List</h1>
             <div className="oderShow">
-            {userData
-              ? userData.getData.buyFood.map((buyFood, index) => {
-                  const matchedFood = userData.getData.addFoodCart.find(
-                    (food) => food._id === buyFood.addFoodCartId
-                  );
-                  {/* document.write(matchedFood); */}
-
-                  return (
+            {userData && userData.getData.addFoodCart
+                ? userData.getData.buyFood.map((buyFood, index)=> (
                     <div key={index} className="showBuy">
-                      {matchedFood && (
-                        <>
-                          <img src={matchedFood.fimg} alt="img" />
-                          <h3>{matchedFood.fname}</h3>
-                          <p>{buyFood.name}</p>
-                          <p>{buyFood.mobile}</p>
-                          <p>{buyFood.address}</p>
-                          {/* <div className="deleteff">
-                            <i
-                              onClick={() => buyFoodDelete(buyFood._id, index)}
-                              class="fa-solid fa-trash"
-                            ></i>
-                          </div> */}
-                        </>
-                      )}
+                      {/* Displaying properties from buyFood array */}
+                      {/* <img src={buyFood.fimg} alt="img" /> */}
+                      <h3>{buyFood.fname}</h3>
+                      <p>{buyFood.name}</p>
+                      <p>{buyFood.mobile}</p>
+                      <p>{buyFood.address}</p>
+                      <div className="deleteButton">
+                        <i onClick={()=>deleteFoodOder(buyFood._id, index)} class="fa-solid fa-trash"></i>
+                      </div>
                     </div>
-                  );
-                })
-              : ""}
+                  ))
+                : ''}
+
           </div>
           </div>
         </div>

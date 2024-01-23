@@ -1,14 +1,23 @@
-.staff .staffContainer .orderContainer{
+*{
+    margin: 0;
+    padding: 0;
+}
+.track{
+    margin: 100px auto;
+    width: 1200px;
+}
+
+.track .orderContainer{
     margin-top: 50px;
 }
 
-.staff .staffContainer .orderContainer .oderShow{
+.track .orderContainer .oderShow{
     display: flex;
     flex-wrap: wrap;
     margin-top: 20px;
 }
 
-.staff .staffContainer .orderContainer .oderShow .showBuy{
+.track .orderContainer .oderShow .showBuy{
     margin-right: 50px;
     margin-bottom: 50px;
     width: 300px;
@@ -16,24 +25,24 @@
     border-radius: 10px;
 }
 
-.staff .staffContainer .orderContainer .oderShow .showBuy img{
+.track .orderContainer .oderShow .showBuy img{
     width: 300px;
     height: 200px;
     border-radius: 10px;
 }
 
-.staff .staffContainer .orderContainer .oderShow .showBuy h3{
+.track .orderContainer .oderShow .showBuy h3{
     padding-top: 10px;
     padding-left: 10px;
 }
 
-.staff .staffContainer .orderContainer .oderShow .showBuy p{
+.track .orderContainer .oderShow .showBuy p{
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 10px;
 }
 
-.staff .staffContainer .orderContainer .oderShow .showBuy i{
+.track .orderContainer .oderShow .showBuy i{
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 10px;
@@ -42,6 +51,6 @@
     display: none;
 }
 
-.staff .staffContainer .orderContainer .oderShow .showBuy:hover i{
+.track .orderContainer .oderShow .showBuy:hover i{
     display: block;
 }

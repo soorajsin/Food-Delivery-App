@@ -7,6 +7,7 @@ import Staff from './Components/Department/Staff';
 import FoodAddress from './Components/Department/ADD/FoodAddress';
 import Homepage from './Components/Home/Homepage';
 import FoodCart from './Components/ADDTOCART/FoodCart';
+import FoodTrack from './Components/Track/FoodTrack';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path='/add' element={<FoodAddress/>}/>
       <Route path='/home' element={<Homepage/>}/>
       <Route path='/addTocart' element={<FoodCart/>}/>
+      <Route path='/track' element={<FoodTrack/>}/>
     </Routes>
     </BrowserRouter>
     </>

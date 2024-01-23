@@ -88,7 +88,7 @@ const Nav = () => {
                      <>
                          <div className="tab">
                                 <NavLink to={"/staff"} className={"tabNavLink"}>
-                                   Staff
+                                   Management
                          </NavLink>
                     </div>
                     </>
@@ -106,7 +106,7 @@ const Nav = () => {
             
                      {userData && userData.getData.role === "staff" && (
                        <div className="tab">
-                         <NavLink to={"/trackFood"} className={"tabNavLink"}>
+                         <NavLink to={"/track"} className={"tabNavLink"}>
                              Track
                           </NavLink>
                         </div>
@@ -132,23 +132,23 @@ const Nav = () => {
                         </NavLink>
                       </div>
                       <div className="avatarTab">
-                        <NavLink to={"/oderFood"} className={"avatarTabNav"}>
-                          Booking
+                        <NavLink to={"/addTocart"} className={"avatarTabNav"}>
+                          Booked
                         </NavLink>
                       </div>
                       {userData && userData.getData.role === "staff" && (
                         <>
                           <div className="avatarTab">
-                            <NavLink to={"staff"} className={"avatarTabNav"}>
-                              Staff
+                            <NavLink to={"/staff"} className={"avatarTabNav"}>
+                              Management
                             </NavLink>
                           </div>
                           <div className="avatarTab">
                             <NavLink
-                              to={"/showBooked"}
+                              to={"/track"}
                               className={"avatarTabNav"}
                             >
-                              Show Booked
+                             Track
                             </NavLink>
                           </div>
                         </>

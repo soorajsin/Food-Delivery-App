@@ -498,6 +498,56 @@ router.post("/buyFood", authentication, async (req, res) => {
     }
 })
 
+
+router.delete("/deleteFoodOder", authentication, async (req, res) => {
+    try {
+              // console.log(req.body);
+              const {
+                buyFoodId
+              } = req.body;
+
+              if (!buyFoodId) {
+                        res.status(400).json({
+                                  error: "Please provide valid id of the item you want to delete."
+                        })
+              } else {
+                        const user = req.getData;
+
+                        if (!user) {
+                                  res.status(400).json({
+                                            error: "Invalid token or You have no authorization to perform this operation."
+                                  })
+                        } else {
+                                  // console.log(user);
+
+                                  const entryField = user.buyFood.find((buyFood) => buyFood._id.toString() === buyFoodId);
+
+                                  if (!entryField) {
+                                            res.status(400).json({
+                                                      error: "You can not remove this field from your diet plan.",
+                                            })
+                                  } else {
+                                            // console.log(entryField);
+
+                                            user.buyFood = user.buyFood.filter((buyFood) => buyFood._id.toString() !== buyFoodId);
+
+                                            const updatedUser = await user.save();
+
+                                            res.status(201).json({
+                                                      msg: "Delete data successfully done",
+                                                      status: 203,
+                                                      data: updatedUser
+                                            })
+                                  }
+                        }
+              }
+    } catch (error) {
+              res.status(400).json({
+                        msg: "Delete failed! Please try again later."
+              })
+    }
+})
+
   
 
 
