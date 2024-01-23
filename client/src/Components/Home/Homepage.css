@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.home{
+    margin: 100px auto;
+    width: 1200px;
+}
+
+.home .homeContainer{
+    margin: auto;
+    width: 1200px;
+}

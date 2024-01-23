@@ -325,5 +325,16 @@ router.put("/updateFood", authentication, async (req, res) => {
 });
 
 
+// router.get("/allFood", async (req, res) => {
+//     try {
+//       const allFood = await userdb.find({}, { addFood: 1, _id: 0 }); // Retrieve addFood field only
+//       res.status(200).json({ allFood });
+//     } catch (error) {
+//       res.status(500).json({ error: "Internal Server Error" });
+//     }
+// });
+  
+
+
 
 module.exports=router;

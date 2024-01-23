@@ -39,7 +39,7 @@ const userSchema=new mongoose.Schema({
         fprice: String,
         fimg: String,
         description: String
-}],
+    }],
 
 })
 
