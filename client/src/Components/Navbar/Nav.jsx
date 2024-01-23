@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from 'react'
-import { AppBar, Toolbar } from "@mui/material";
-import { NavLink } from 'react-router-dom';
+import { AppBar, Toolbar, Avatar } from "@mui/material";
+import { NavLink, useNavigate } from 'react-router-dom';
 import "./Nav.css";
 import apiURL from "../config";
 import { contextNavigate } from '../Context/ContextProvider';
 
 const Nav = () => {
+    const history=useNavigate();
     const {userData, setUserData}=useContext(contextNavigate);
     const api=apiURL.url;
     const navAuth=async()=>{
@@ -38,6 +39,31 @@ const Nav = () => {
     })
 
 
+    const logOut = async () => {
+    const token = await localStorage.getItem("userDataToken");
+
+    const data = await fetch(`${api}/signOut`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
+
+    const res = await data.json();
+    // console.log(res);
+
+    if (res.status === 208) {
+      localStorage.removeItem("userDataToken");
+      history("/");
+      window.location.reload();
+    } else {
+      alert("Not Log Out");
+    }
+  };
+
+
+
   return (
     <>
     <AppBar>
@@ -58,20 +84,88 @@ const Nav = () => {
                             Home
                          </NavLink>
                     </div>
-                    <div className="tab">
-                        <NavLink to={"/staff"} className={"tabNavLink"}>
-                            Staff
-                        </NavLink>
+                    {userData && userData.getData.role === "staff" && (
+                     <>
+                         <div className="tab">
+                                <NavLink to={"/staff"} className={"tabNavLink"}>
+                                   Staff
+                         </NavLink>
                     </div>
+                    </>
+                    )}
                     <div className="tab">
                         <NavLink to={"/"} className={"tabNavLink"}>
                             Login
                         </NavLink>
                     </div>
                     <div className="tab">
-                        Avatar
+                         <NavLink to={"/oderFood"} className={"tabNavLink"}>
+                            <i class="fa-solid fa-cart-shopping"></i>
+                         </NavLink>
                     </div>
-                </div>
+            
+                     {userData && userData.getData.role === "staff" && (
+                       <div className="tab">
+                         <NavLink to={"/trackFood"} className={"tabNavLink"}>
+                             Track
+                          </NavLink>
+                        </div>
+                     )}
+
+                     <div className="tab">
+                     <NavLink className={"tabNavLink"}>
+                  <Avatar className="avatarIcon">
+                    {userData
+                      ? userData.getData.email.charAt(0).toUpperCase()
+                      : ""}
+                  </Avatar>
+                  <div className="avatarManu">
+                    <div className="avatarConainer">
+                     <div className="avatarTab">
+                        <NavLink  className={"avatarTabNav"}>
+                          {userData?userData.getData.email:""}
+                        </NavLink>
+                      </div>
+                      <div className="avatarTab">
+                        <NavLink to={"/home"} className={"avatarTabNav"}>
+                          Home
+                        </NavLink>
+                      </div>
+                      <div className="avatarTab">
+                        <NavLink to={"/oderFood"} className={"avatarTabNav"}>
+                          Booking
+                        </NavLink>
+                      </div>
+                      {userData && userData.getData.role === "staff" && (
+                        <>
+                          <div className="avatarTab">
+                            <NavLink to={"staff"} className={"avatarTabNav"}>
+                              Staff
+                            </NavLink>
+                          </div>
+                          <div className="avatarTab">
+                            <NavLink
+                              to={"/showBooked"}
+                              className={"avatarTabNav"}
+                            >
+                              Show Booked
+                            </NavLink>
+                          </div>
+                        </>
+                      )}
+                      <div className="avatarTab">
+                        <NavLink to={"/"} className={"avatarTabNav"}>
+                          Login
+                        </NavLink>
+                      </div>
+                      <div className="avatarTab" onClick={logOut}>
+                        <NavLink className={"avatarTabNav"}>Log Out</NavLink>
+                      </div>
+                    </div>
+                  </div>
+                </NavLink>
+                     </div>
+              </div>
             </div>
         </Toolbar>
     </AppBar>

@@ -148,4 +148,36 @@ router.get("/validator", authentication,  async(req, res)=>{
 })
 
 
+router.post("/signOut", authentication, async (req, res) => {
+    try {
+              // console.log(req.body);
+
+              const user = req.getData;
+
+              if (!user) {
+                        res.status(400).json({
+                                  error: "Please login first to sign out."
+                        })
+              } else {
+                        // console.log(user);
+
+                        user.tokens = [];
+
+                        const updatedUser = await user.save();
+
+                        res.status(201).json({
+                                  msg: "Log Out",
+                                  status: 208,
+                                  data: updatedUser
+                        })
+
+              }
+    } catch (error) {
+              res.status(400).json({
+                        msg: "Log out failed"
+              })
+    }
+})
+
+
 module.exports=router;
