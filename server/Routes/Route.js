@@ -384,6 +384,108 @@ router.post("/addToCart", authentication, async (req, res) => {
               })
     }
 })
+
+
+router.delete("/deleteFoodCart", authentication, async (req, res) => {
+    try {
+              // console.log(req.body);
+              const {
+                addFoodCartId
+              } = req.body;
+
+              if (!addFoodCartId) {
+                        res.status(400).json({
+                                  error: "Please provide valid id of the item you want to delete."
+                        })
+              } else {
+                        const user = req.getData;
+
+                        if (!user) {
+                                  res.status(400).json({
+                                            error: "Invalid token or You have no authorization to perform this operation."
+                                  })
+                        } else {
+                                  // console.log(user);
+
+                                  const entryField = user.addFoodCart.find((addFoodCart) => addFoodCart._id.toString() === addFoodCartId);
+
+                                  if (!entryField) {
+                                            res.status(400).json({
+                                                      error: "You can not remove this field from your diet plan.",
+                                            })
+                                  } else {
+                                            // console.log(entryField);
+
+                                            user.addFoodCart = user.addFoodCart.filter((addFoodCart) => addFoodCart._id.toString() !== addFoodCartId);
+
+                                            const updatedUser = await user.save();
+
+                                            res.status(201).json({
+                                                      msg: "Delete data successfully done",
+                                                      status: 203,
+                                                      data: updatedUser
+                                            })
+                                  }
+                        }
+              }
+    } catch (error) {
+              res.status(400).json({
+                        msg: "Delete failed! Please try again later."
+              })
+    }
+})
+
+
+
+
+router.post("/buyFood", authentication, async (req, res) => {
+    try {
+            //   console.log(req.body);
+              const {
+                        addFoodId
+              } = req.body;
+
+              if (!addFoodCartId) {
+                        res.status(400).json({
+                                  msg: "Please provide all required field"
+                        })
+              } else {
+                        const user = req.getData;
+
+                        if (!user) {
+                                  res.status(400).json({
+                                            msg: "user not found"
+                                  })
+                        } else {
+                                  // console.log(user);
+
+                                  const entryField = user.addFood.find((addFood) => addFood._id.toString() === addFoodCartId);
+
+                                  if (!entryField) {
+                                            res.status(400).json({
+                                                      msg: "not valid id"
+                                            })
+                                  } else {
+                                            // console.log(entryField);
+
+                                            user.addFoodCart.push(entryField);
+
+                                            const updatedUser = await user.save();
+
+                                            res.status(201).json({
+                                                      status: 207,
+                                                      msg: "oder successfully done",
+                                                      data: updatedUser
+                                            })
+                                  }
+                        }
+              }
+    } catch (error) {
+              res.status(400).json({
+                        msg: "Oder food failed"
+              })
+    }
+})
   
 
 
