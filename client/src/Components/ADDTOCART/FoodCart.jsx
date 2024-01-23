@@ -122,6 +122,28 @@ const FoodCart = () => {
 
           </div>
           </div>
+          <div className="orderContainer">
+            <h1>Your Delivery Boy List</h1>
+            <div className="oderShow">
+            {userData
+                ? userData.getData.responseOrder.map((responseOrder, index)=> (
+                    <div key={index} className="showBuy">
+                      {/* Displaying properties from buyFood array */}
+                      {/* <img src={buyFood.fimg} alt="img" /> */}
+                      {/* <h3>{buyFood.fname}</h3> */}
+                      <p>{responseOrder.deliveryName}</p>
+                      <p>{responseOrder.deliveriMobile}</p>
+                      <p>{responseOrder.deliveryEmail}</p>
+                      <p>{responseOrder.deliveryTime}H</p>
+                      {/* <div className="deleteButton">
+                        <i onClick={()=>deleteFoodOder(buyFood._id, index)} class="fa-solid fa-trash"></i>
+                      </div> */}
+                    </div>
+                  ))
+                : ''}
+
+          </div>
+          </div>
         </div>
       </div>
     </>

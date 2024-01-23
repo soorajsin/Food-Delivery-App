@@ -548,6 +548,43 @@ router.delete("/deleteFoodOder", authentication, async (req, res) => {
     }
 })
 
+
+router.post("/responseOrder", authentication, async(req, res)=>{
+    try {
+        // console.log(req.body);
+        const {deliveryName, deliveriMobile, deliveryEmail, deliveryTime}=req.body;
+
+        if(!deliveryName || !deliveriMobile || !deliveryEmail || !deliveryTime){
+            res.status(400).json({
+                message:"Please provide all fields"
+            })
+        }else{
+            const user=req.getData;
+
+            if (!user) {
+                res.status(400).json({
+                          error: "Invalid token or You have no authorization to perform this operation."
+                })
+            }else{
+                user.responseOrder.push({
+                    deliveryName, deliveriMobile, deliveryEmail, deliveryTime
+                })
+
+                const updatedUser=await user.save();
+
+                res.status(201).json({
+                    status:205,
+                    data:updatedUser
+                })
+            } 
+        }
+    } catch (error) {
+        res.status(400).json({
+            msg:"Failed to response"
+        })
+    }
+})
+
   
 
 

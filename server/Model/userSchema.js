@@ -51,6 +51,12 @@ const userSchema=new mongoose.Schema({
         name: String,
         mobile: String,
         address: String
+    }],
+    responseOrder:[{
+        deliveryName:String,
+        deliveriMobile:String,
+        deliveryEmail:String,
+        deliveryTime:String
     }]
 
 })
