@@ -46,6 +46,12 @@ const userSchema=new mongoose.Schema({
         fimg: String,
         description: String
     }],
+    buyFood: [{
+        addFoodId: String,
+        name: String,
+        mobile: String,
+        address: String
+    }]
 
 })
 

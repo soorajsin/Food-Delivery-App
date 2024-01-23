@@ -440,14 +440,17 @@ router.delete("/deleteFoodCart", authentication, async (req, res) => {
 
 router.post("/buyFood", authentication, async (req, res) => {
     try {
-            //   console.log(req.body);
+              // console.log(req.body);
               const {
-                        addFoodId
+                        addFoodCartId,
+                        name,
+                        mobile,
+                        address
               } = req.body;
 
-              if (!addFoodCartId) {
+              if (!addFoodCartId || !name || !mobile || !address) {
                         res.status(400).json({
-                                  msg: "Please provide all required field"
+                                  msg: "filled all place"
                         })
               } else {
                         const user = req.getData;
@@ -458,34 +461,43 @@ router.post("/buyFood", authentication, async (req, res) => {
                                   })
                         } else {
                                   // console.log(user);
-
-                                  const entryField = user.addFood.find((addFood) => addFood._id.toString() === addFoodCartId);
+                                  const entryField = user.addFoodCart.find((addFoodCart) => addFoodCart._id.toString() === addFoodCartId);
 
                                   if (!entryField) {
                                             res.status(400).json({
-                                                      msg: "not valid id"
+                                                      msg: "invalied product"
                                             })
                                   } else {
                                             // console.log(entryField);
 
-                                            user.addFoodCart.push(entryField);
+                                            const purchageFoodDetails = {
+                                                      addFoodCartId: entryField._id,
+                                                      name,
+                                                      mobile,
+                                                      address
+                                            }
+
+                                            user.buyFood.push(purchageFoodDetails);
 
                                             const updatedUser = await user.save();
+                                            // console.log(updatedUser);
 
                                             res.status(201).json({
-                                                      status: 207,
-                                                      msg: "oder successfully done",
+                                                      msg: "buy product",
+                                                      status: 209,
                                                       data: updatedUser
                                             })
+
                                   }
                         }
               }
     } catch (error) {
               res.status(400).json({
-                        msg: "Oder food failed"
+                        msg: "Failed to buy food"
               })
     }
 })
+
   
 
 

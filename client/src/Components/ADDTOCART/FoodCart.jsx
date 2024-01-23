@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { contextNavigate } from '../Context/ContextProvider';
 import apiURL from "../config";
+import "./FoodCart.css";
 
 const FoodCart = () => {
     const api=apiURL.url;
@@ -41,7 +42,11 @@ const FoodCart = () => {
         });
     
         const res = await data.json();
-        console.log(res);
+        // console.log(res);
+
+        if(res.status === 209){
+            console.log(res);
+        }
     };
   return (
     <>
@@ -72,6 +77,39 @@ const FoodCart = () => {
                   </div>
                 ))
               : ""}
+          </div>
+          <div className="orderContainer">
+            <h1>Your Order List</h1>
+            <div className="oderShow">
+            {userData
+              ? userData.getData.buyFood.map((buyFood, index) => {
+                  const matchedFood = userData.getData.addFoodCart.find(
+                    (food) => food._id === buyFood.addFoodCartId
+                  );
+                  {/* document.write(matchedFood); */}
+
+                  return (
+                    <div key={index} className="showBuy">
+                      {matchedFood && (
+                        <>
+                          <img src={matchedFood.fimg} alt="img" />
+                          <h3>{matchedFood.fname}</h3>
+                          <p>{buyFood.name}</p>
+                          <p>{buyFood.mobile}</p>
+                          <p>{buyFood.address}</p>
+                          {/* <div className="deleteff">
+                            <i
+                              onClick={() => buyFoodDelete(buyFood._id, index)}
+                              class="fa-solid fa-trash"
+                            ></i>
+                          </div> */}
+                        </>
+                      )}
+                    </div>
+                  );
+                })
+              : ""}
+          </div>
           </div>
         </div>
       </div>
