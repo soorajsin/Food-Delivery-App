@@ -38,6 +38,42 @@ const Staff = () => {
   };
 
 
+  const updateFood = async (addFoodId, index) => {
+    const newFoodName = prompt("Enter the new food name:");
+    const newFoodPrice = prompt("Enter the new food price:");
+    if (isNaN(newFoodPrice)) {
+      alert("Please enter a valid number for food price.");
+      return;
+    }
+    const newDescription = prompt("Enter the new description:");
+
+    const token = await localStorage.getItem("userDataToken");
+
+    const data = await fetch(`${api}/updateFood`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify({
+        addFoodId,
+        newFoodName,
+        newFoodPrice,
+        newDescription,
+      }),
+    });
+
+    const res = await data.json();
+    // console.log(res);
+
+    if (res.status === 204) {
+      console.log(res);
+    } else {
+      alert("plz authorised");
+    }
+  };
+
+
   return (
     <>
       <div className="staff">
@@ -64,7 +100,7 @@ const Staff = () => {
                         </div>
                         <div className="updateFood">
                           <i
-                            // onClick={() => updateFood(addFood._id, index)}
+                            onClick={() => updateFood(addFood._id, index)}
                             class="fa-solid fa-pen-to-square"
                           ></i>
                         </div>
