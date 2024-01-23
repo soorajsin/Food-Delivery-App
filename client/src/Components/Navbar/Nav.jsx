@@ -1,9 +1,43 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AppBar, Toolbar } from "@mui/material";
 import { NavLink } from 'react-router-dom';
 import "./Nav.css";
+import apiURL from "../config";
+import { contextNavigate } from '../Context/ContextProvider';
 
 const Nav = () => {
+    const {userData, setUserData}=useContext(contextNavigate);
+    const api=apiURL.url;
+    const navAuth=async()=>{
+        const token=await localStorage.getItem("userDataToken");
+        // console.log(token);
+
+        const data = await fetch(`${api}/validator`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: token,
+            },
+        });
+
+        const res=await data.json();
+        // console.log(res);
+
+
+        if (res.status === 202) {
+            console.log(res);
+            setUserData(res);
+          } else {
+            console.log("failed auth");
+            // history("/");
+          }
+    }
+
+    useEffect(()=>{
+        navAuth();
+    })
+
+
   return (
     <>
     <AppBar>

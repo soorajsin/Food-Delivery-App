@@ -42,7 +42,20 @@ const Login = () => {
       });
 
       const res = await data.json();
-      console.log(res);
+      // console.log(res);
+
+
+      if (res.status === 201) {
+        console.log(res);
+        localStorage.setItem("userDataToken", res.userData.token);
+        history("/staff");
+      } else if (res.status === 205) {
+        alert("Email is not registered");
+      } else if (res.status === 206) {
+        alert("Password is not matched");
+      } else {
+        console.log("login failed");
+      }
     }
   }
 
