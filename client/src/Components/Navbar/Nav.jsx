@@ -71,7 +71,7 @@ const Nav = () => {
             <div className="nav">
                 <div className="navContainer">
                     <div className="tab">
-                    <NavLink className={"tabNavLink"}>
+                    <NavLink to={"/home"} className={"tabNavLink"}>
                         <img
                             src="https://shopping-app-xx1p.vercel.app/static/media/Sooraj-logo.4ea9ba32a0c93354b8a8.png"
                              alt="logo"
@@ -99,7 +99,7 @@ const Nav = () => {
                         </NavLink>
                     </div>
                     <div className="tab">
-                         <NavLink to={"/oderFood"} className={"tabNavLink"}>
+                         <NavLink to={"/addTocart"} className={"tabNavLink"}>
                             <i class="fa-solid fa-cart-shopping"></i>
                          </NavLink>
                     </div>

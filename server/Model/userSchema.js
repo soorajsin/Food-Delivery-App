@@ -40,6 +40,12 @@ const userSchema=new mongoose.Schema({
         fimg: String,
         description: String
     }],
+    addFoodCart: [{
+        fname: String,
+        fprice: String,
+        fimg: String,
+        description: String
+    }],
 
 })
 

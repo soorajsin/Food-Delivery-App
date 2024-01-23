@@ -333,6 +333,57 @@ router.put("/updateFood", authentication, async (req, res) => {
 //       res.status(500).json({ error: "Internal Server Error" });
 //     }
 // });
+
+
+
+router.post("/addToCart", authentication, async (req, res) => {
+    try {
+            //   console.log(req.body);
+              const {
+                        addFoodId
+              } = req.body;
+
+              if (!addFoodId) {
+                        res.status(400).json({
+                                  msg: "Please provide all required field"
+                        })
+              } else {
+                        const user = req.getData;
+
+                        if (!user) {
+                                  res.status(400).json({
+                                            msg: "user not found"
+                                  })
+                        } else {
+                                  // console.log(user);
+
+                                  const entryField = user.addFood.find((addFood) => addFood._id.toString() === addFoodId);
+
+                                  if (!entryField) {
+                                            res.status(400).json({
+                                                      msg: "not valid id"
+                                            })
+                                  } else {
+                                            // console.log(entryField);
+
+                                            user.addFoodCart.push(entryField);
+
+                                            const updatedUser = await user.save();
+
+                                            res.status(201).json({
+                                                      status: 207,
+                                                      msg: "oder successfully done",
+                                                      data: updatedUser
+                                            })
+                                  }
+                        }
+              }
+    } catch (error) {
+              res.status(400).json({
+                        msg: "Oder food failed"
+              })
+    }
+})
   
 
 
